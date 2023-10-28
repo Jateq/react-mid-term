@@ -55,13 +55,16 @@ const TwitterPost = () => {
             <div className="tweets">
                 {posts.map((post, index) => (
                         <div className="tweet">
+                    <Link to={{ pathname: `/post${index}`, state: { tweet: post } }} key={index}>
+
                             <div className="user-info">
                                 <h3>{post.username}</h3>
                             </div>
+                    </Link>
+
                             <p>{post.text}</p>
                             <div className="tweet-actions">
                                 <button onClick={() => handleLikeClick(index)}>Like ({post.likes})</button>
-                              
                             </div>
                         </div>
                 ))}

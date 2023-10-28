@@ -1,4 +1,4 @@
-    import { useState } from 'react';
+    import { useState, useMemo } from 'react';
     import '../components/profile.css'
 
     function Profile() {
@@ -19,19 +19,20 @@
         setIsDisplayed(true);
       };
 
+      const displayedBlock = useMemo(() => (
+        <div className='displayed-block'>
+          <h1>{name}</h1>
+          <p>Age: {age}</p>
+          <p>Location: {location}</p>
+          <p>Bio: {bio}</p>
+        </div>
+      ), [name, age, location, bio]);
+
       return (
         <div className="profile">
-              <img src="./miras.png"></img>
+          <img src="./miras.png"></img>
 
-          {isDisplayed && (
-            
-            <div className='displayed-block'>
-              <h1>{name}</h1>
-              <p>Age: {age}</p>
-              <p>Location: {location}</p>
-              <p>Bio: {bio}</p>
-            </div>
-          )}
+          {isDisplayed && displayedBlock}
           {isEditing ? (
             <div>
               <label>
@@ -42,7 +43,7 @@
                 Age:
                 <input type="number" value={age} onChange={(e) => setAge(e.target.value)} />
               </label>
-    
+
               <label>
                 Bio:
                 <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
